@@ -28,7 +28,6 @@ echo ($message ? dol_htmloutput_mesg($message, '', ($error ? 'error' : 'ok'), 0)
 
 dol_fiche_head($head, $current_head, $langs->trans('Ndfp'));
 
-
         
 ?>
 

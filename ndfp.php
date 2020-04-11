@@ -107,214 +107,10 @@ if ($id > 0 || !empty($ref))
 
     if ($result < 0)
     {
-	    header("Location: ".$_SERVER['PHP_SELF']);
+	    header("Location: ".dol_buildpath('/ndfp/list.php', 1));
     }
 
 }
-else
-{
-    if (empty($action) && ($user->rights->ndfp->myactions->read || $user->rights->ndfp->allactions->read))
-    {
-        // Get all notes
-
-        $sortfield = GETPOST("sortfield",'alpha');
-        $sortorder = GETPOST("sortorder",'alpha');
-        $filter = GETPOST("filter",'alpha');
-
-        $page = GETPOST("page",'int');
-
-        // Filter search
-        $search_ref = GETPOST("search_ref");
-        $search_statut = GETPOST("search_statut");
-
-        $search_month_s = GETPOST("search_month_s",'int');
-        $search_year_s = GETPOST("search_year_s",'int');
-
-        $search_month_e = GETPOST("search_month_e",'int');
-        $search_year_e = GETPOST("search_year_e",'int');
-
-        $search_soc = GETPOST("search_soc",'alpha');
-        $search_user = GETPOST("search_user",'alpha');
-
-        $search_ht_amount = GETPOST("search_ht_amount");
-        $search_ttc_amount = GETPOST("search_ttc_amount");
-        $search_total_paid = GETPOST("search_total_paid");
-        //
-
-        $fk_user = GETPOST('fk_user', 'int');
-        $fk_soc = GETPOST('fk_soc', 'int');
-
-        if ($user->societe_id) // Security check
-        {
-           $fk_soc = $user->societe_id;
-        }
-
-        if ($page == -1 || empty($page))
-        {
-            $page = 0;
-        }
-
-        $page = intval($page);
-
-        $offset = $conf->liste_limit * $page;
-
-        if (! $sortorder) $sortorder = 'DESC';
-        if (! $sortfield) $sortfield = 'n.datef';
-
-        $limit = $conf->liste_limit;
-
-        $pageprev = $page - 1;
-        $pagenext = $page + 1;
-
-        $sql = "SELECT n.rowid, n.ref, n.tms, n.total_ht, n.total_ttc, n.fk_user, n.statut, n.fk_soc, n.dates, n.datee, n.billed, ";
-        $sql.= " u.rowid as uid, u.lastname, u.firstname, s.nom AS soc_name, s.rowid AS soc_id, u.login, n.total_tva";
-        $sql.= " FROM ".MAIN_DB_PREFIX."ndfp as n";
-        $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."user as u ON n.fk_user = u.rowid";
-        $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON s.rowid = n.fk_soc";
-        $sql.= " WHERE n.entity = ".$conf->entity;
-
-        if ($filter == 'unpaid')
-        {
-            $sql.= " AND n.statut = 1";
-        }
-
-        if ($fk_soc > 0)
-        {
-            $sql .= " AND n.fk_soc = ".$fk_soc;
-        }
-
-        if ($fk_user > 0)
-        {
-            $sql .= " AND n.fk_user = ".$fk_user;
-        }
-
-        if ($user->rights->ndfp->myactions->read && !$user->rights->ndfp->allactions->read)
-        {
-            $sql .= " AND n.fk_user = ".$user->id;
-        }
-
-        if ($search_ref)
-        {
-            $sql.= ' AND n.ref LIKE \'%'.$db->escape(trim($search_ref)).'%\'';
-        }
-        if ($search_soc)
-        {
-            $sql.= ' AND s.nom LIKE \'%'.$db->escape(trim($search_soc)).'%\'';
-        }
-        if ($search_user)
-        {
-            $sql.= ' AND (u.lastname LIKE \'%'.$db->escape(trim($search_user)).'%\' OR u.firstname LIKE \'%'.$db->escape(trim($search_user)).'%\')';
-        }
-
-        if ($search_ht_amount)
-        {
-            $sql.= ' AND n.total_ht = '.$db->escape(price2num(trim($search_ht_amount)));
-        }
-        if ($search_ttc_amount)
-        {
-            $sql.= ' AND n.total_ttc = '.$db->escape(price2num(trim($search_ttc_amount)));
-        }
-
-
-        if ($search_month_s > 0)
-        {
-            if ($search_year_s > 0)
-            $sql.= " AND n.dates BETWEEN '".$db->idate(dol_get_first_day($search_year_s,$search_month_s,false))."' AND '".$db->idate(dol_get_last_day($search_year_s,$search_month_s,false))."'";
-            else
-            $sql.= " AND date_format(n.dates, '%m') = '".$search_month_s."'";
-        }
-        else if ($search_year_s > 0)
-        {
-            $sql.= " AND n.dates BETWEEN '".$db->idate(dol_get_first_day($search_year_s,1,false))."' AND '".$db->idate(dol_get_last_day($search_year_s,12,false))."'";
-        }
-
-        if ($search_month_e > 0)
-        {
-            if ($search_year_e > 0)
-            $sql.= " AND n.datee BETWEEN '".$db->idate(dol_get_first_day($search_year_e,$search_month_e,false))."' AND '".$db->idate(dol_get_last_day($search_year_e,$search_month_e,false))."'";
-            else
-            $sql.= " AND date_format(n.datee, '%m') = '".$search_month_e."'";
-        }
-        else if ($search_year_e > 0)
-        {
-            $sql.= " AND n.datee BETWEEN '".$db->idate(dol_get_first_day($search_year_e,1,false))."' AND '".$db->idate(dol_get_last_day($search_year_e,12,false))."'";
-        }
-
-        if (is_numeric($search_statut))
-        {
-            $sql.= " AND n.statut  = ".$search_statut;
-        }
-
-        $sql.= ' GROUP BY n.rowid ORDER BY '.$sortfield.' '.$sortorder.', n.rowid DESC ';
-        $sql.= $db->plimit($limit+1, $offset);
-
-        dol_syslog("Ndfp::ndfp sql=".$sql, LOG_DEBUG);
-        $result = $db->query($sql);
-
-
-        if ($result)
-        {
-            $num = $db->num_rows($result);
-            $i = 0;
-
-            if ($num)
-            {
-                while ($i < $num)
-                {
-                    $userstatic = new User($db);
-                    $ndfpstatic = new Ndfp($db);
-                    $societestatic = new Societe($db);
-
-                    $obj = $db->fetch_object($result);
-
-                    $ndfps[$i] = $obj;
-
-                    $userstatic->lastname  = $obj->lastname;
-                    $userstatic->firstname = $obj->firstname;
-                    $userstatic->id = $obj->uid;
-
-                    $societestatic->id = $obj->soc_id;
-                    $societestatic->name = $obj->soc_name;
-
-                    $ndfpstatic->id = $obj->rowid;
-                    $ndfpstatic->ref = $obj->ref;
-                    $ndfpstatic->statut = $obj->statut;
-					
-					$ndfpstatic->fetchObjectLinked($ndfpstatic->id, $ndfpstatic->element, '', 'invoice_supplier');
-
-					$ndfps[$i]->already_paid = $ndfpstatic->get_amount_payments_done();
-
-					
-					
-                    $ndfps[$i]->mdate = $db->jdate($obj->tms);
-                    $ndfps[$i]->username = $userstatic->getNomUrl(1);
-                    $ndfps[$i]->total_ttc = $obj->total_ttc;
-                    $ndfps[$i]->url = $ndfpstatic->getNomUrl(1);
-
-                    $ndfps[$i]->society = ($obj->fk_soc > 0 ? $societestatic->getNomUrl(1) : '');
-
-
-                    $ndfps[$i]->statut = $ndfpstatic->get_lib_statut(5, $ndfps[$i]->already_paid);
-
-                    $ndfps[$i]->dates = $db->jdate($obj->dates);
-                    $ndfps[$i]->datee = $db->jdate($obj->datee);
-
-                    $ndfps[$i]->filename = dol_sanitizeFileName($obj->ref);
-                    $ndfps[$i]->filedir = $conf->ndfp->dir_output . '/' . dol_sanitizeFileName($obj->ref);
-                    $ndfps[$i]->urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->rowid;
-
-  
-                    $i++;
-                }
-            }
-        }
-
-
-    }
-
-
-}
-
 
 
 if ($action != 'create' && $action != 'delete' && $action != 'setproject' && !$cancel)
@@ -325,7 +121,7 @@ if ($action != 'create' && $action != 'delete' && $action != 'setproject' && !$c
     {
         if ($action == 'confirm_delete')
         {
-            header("Location: ".$_SERVER['PHP_SELF']);
+            header("Location: ".dol_buildpath('/ndfp/list.php', 1));
         }
         else
         {
@@ -640,11 +436,6 @@ if ($ndfp->id > 0 || $action == 'create')
 
         include 'tpl/ndfp.default.tpl.php';
     }
-}
-else
-{
-    // Display all notes
-    include 'tpl/ndfp.list.tpl.php';
 }
 
 $db->close();

@@ -10,6 +10,7 @@ NotConfigured=Non configuré
 NewNdfp=Nouvelle note de frais
 UnpaidNdfp=Impayées
 ListNdfp=Liste
+CreatedByUsers=Utilisateur
 PredefinedNdfp=Prédéfinies
 PaymentsNdfp=Règlements
 Payments=Règlements

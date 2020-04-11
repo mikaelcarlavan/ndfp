@@ -10,6 +10,7 @@ NotConfigured=Not configured
 NewNdfp=New note
 UnpaidNdfp=Unpaid notes
 ListNdfp=List
+CreatedByUsers=Utilisateur
 PredefinedNdfp=Predefined notes
 PaymentsNdfp=Payments
 Payments=Payments
