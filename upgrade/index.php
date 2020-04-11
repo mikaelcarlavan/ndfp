@@ -37,7 +37,7 @@ $langs->load("ndfp@ndfp");
 $langs->load("other");
 $langs->load("errors");
 
-$moduleVersion = '2.0.6';
+$moduleVersion = '2.0.7';
 $migrationScript = array(
 		        array('from'=>'1.2.1', 'to'=>'1.2.2'),
                         array('from'=>'1.2.2', 'to'=>'1.2.3'),
@@ -55,7 +55,8 @@ $migrationScript = array(
                         array('from'=>'2.0.2', 'to'=>'2.0.3'),
                         array('from'=>'2.0.3', 'to'=>'2.0.4'),
                         array('from'=>'2.0.4', 'to'=>'2.0.5'),
-                        array('from'=>'2.0.5', 'to'=>'2.0.6')
+                        array('from'=>'2.0.5', 'to'=>'2.0.6'),
+                        array('from'=>'2.0.6', 'to'=>'2.0.7')
                         );
 
 $head = ndfpadmin_prepare_head();

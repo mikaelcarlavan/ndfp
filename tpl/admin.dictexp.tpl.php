@@ -54,7 +54,7 @@ echo $formconfirm;
         <tr class="impair">
             <td>
                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                <input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>" />
+                <input type="hidden" name="token" value="<?php echo newToken(); ?>" />
                 <input type="text"  class="flat" size="32" name="code" value="" />
             </td>
             <td><input type="text"  class="flat" size="32" name="label" value="" /></td>
@@ -98,7 +98,7 @@ echo $formconfirm;
             <td>
                 <?php if ($action == 'modify' && $exp->rowid == $rowid){ ?>
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                        <input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>" />
+                        <input type="hidden" name="token" value="<?php echo newToken(); ?>" />
                         <input type="hidden" name="rowid" value="<?php echo $exp->rowid; ?>" />
                         <input type="hidden" name="active" value="<?php echo $exp->active; ?>" />
                         <input type="hidden" name="page" value="<?php echo $page; ?>" />

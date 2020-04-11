@@ -23,6 +23,7 @@
  *	\ingroup    ndfp
  *	\brief      Javascript functions to create a note
  */
+define('NOTOKENRENEWAL', 1);
 
 $res=@include("../../main.inc.php");				// For root directory
 if (! $res) $res=@include("../../../main.inc.php");	// For "custom" directory
@@ -130,31 +131,36 @@ $(document).ready(function() {
 
 function updateHT()
 {
-	$.post( "<?php echo dol_buildpath('/ndfp/ajax.php?action=updateht', 1); ?>", $( "#addexpense" ).serialize(), function( data ) {
+	if ($( "#addexpense" ).length) {
+		$.post( "<?php echo dol_buildpath('/ndfp/ajax.php?action=updateht', 1); ?>", $( "#addexpense" ).serialize(), function( data ) {
 		
-		var typeData = jQuery.parseJSON(data);
-		$('#total_ht').val(typeData.totalht);  
-	});
+			var typeData = jQuery.parseJSON(data);
+			$('#total_ht').val(typeData.totalht);  
+		});
+	}
 }
 
 function updateTTC()
 {
-	$.post( "<?php echo dol_buildpath('/ndfp/ajax.php?action=updatettcfromht', 1); ?>", $( "#addexpense" ).serialize(), function( data ) {
+	if ($( "#addexpense" ).length) {
+		$.post( "<?php echo dol_buildpath('/ndfp/ajax.php?action=updatettcfromht', 1); ?>", $( "#addexpense" ).serialize(), function( data ) {
 		
-		var typeData = jQuery.parseJSON(data);
-		$('#total_ttc').val(typeData.totalttc);  
-	});
+			var typeData = jQuery.parseJSON(data);
+			$('#total_ttc').val(typeData.totalttc);  
+		});
+	}
 }
 
 function updateTotals()
 {
-	$.post( "<?php echo dol_buildpath('/ndfp/ajax.php?action=updatettc', 1); ?>", $( "#addexpense" ).serialize(), function( data ) {
+	if ($( "#addexpense" ).length) {
+		$.post( "<?php echo dol_buildpath('/ndfp/ajax.php?action=updatettc', 1); ?>", $( "#addexpense" ).serialize(), function( data ) {
 
-
-		var typeData = jQuery.parseJSON(data);
-		$('#total_ttc').val(typeData.totalttc);
-		$('#total_ht').val(typeData.totalht);   
-	});
+			var typeData = jQuery.parseJSON(data);
+			$('#total_ttc').val(typeData.totalttc);
+			$('#total_ht').val(typeData.totalht);   
+		});
+	}
 }
 
 function updateTVA()
@@ -172,20 +178,24 @@ function updateTVA()
 
 function updatePreviousExp()
 {
-	$.post( "<?php echo dol_buildpath('/ndfp/ajax.php?action=getfees', 1); ?>", $( "#addexpense" ).serialize(), function( data ) {
+	if ($( "#addexpense" ).length) {
+		$.post( "<?php echo dol_buildpath('/ndfp/ajax.php?action=getfees', 1); ?>", $( "#addexpense" ).serialize(), function( data ) {
 
 		var typeData = jQuery.parseJSON(data);
 		$('#previous_exp').val(typeData.previousexp);  
 
 		updateTotals();
-	});
+		});
+	}
 }
 
 function updateMilestoneTVA()
 {
-	$.post( "<?php echo dol_buildpath('/ndfp/ajax.php?action=updatetva', 1); ?>", $( "#addtvaline" ).serialize(), function( data ) {
+	if ($( "#addtvaline" ).length) {
+		$.post( "<?php echo dol_buildpath('/ndfp/ajax.php?action=updatetva', 1); ?>", $( "#addtvaline" ).serialize(), function( data ) {
 
 		var typeData = jQuery.parseJSON(data);
 		$('#total_tva').val(typeData.totaltva);  
-	});	
+		});	
+	}
 }

@@ -131,7 +131,7 @@ dol_fiche_head($head, 'config', $langs->trans("Ndfp"));
 <br />
 
 <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="POST">
-<input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>">
+<input type="hidden" name="token" value="<?php echo newToken(); ?>">
 <input type="hidden" name="action" value="update">
 
 
@@ -168,7 +168,7 @@ dol_fiche_head($head, 'config', $langs->trans("Ndfp"));
 <div class="titre"><?php $langs->trans("NdfpAutoEvents"); ?></div>
 
 <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="POST">
-<input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>">
+<input type="hidden" name="token" value="<?php echo newToken(); ?>">
 <input type="hidden" name="action" value="saveautoevents">
 
 

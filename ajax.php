@@ -24,6 +24,8 @@
  *	\brief      Page to create/modify/view a credit note or all credit notes
  */
 
+define('NOTOKENRENEWAL', 1);
+
 $res=@include("../main.inc.php");					// For root directory
 if (! $res) $res=@include("../../main.inc.php");	// For "custom" directory
 

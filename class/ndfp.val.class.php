@@ -264,6 +264,3 @@ class NdfpVal extends CommonObject
 	}
 
 }
-
-
-?>

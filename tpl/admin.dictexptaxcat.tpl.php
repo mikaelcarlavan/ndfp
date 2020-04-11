@@ -51,7 +51,7 @@ echo $formconfirm;
 
         <tr class="impair">
 		<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-			<input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>" />		
+			<input type="hidden" name="token" value="<?php echo newToken(); ?>" />		
             <td><input type="text"  class="flat" size="32" name="label" value="" /></td>
             <td><?php echo $ndfpHtml->select_parent_cats('', 'fk_parent'); ?></td>
             <td colspan="3" align="right">
@@ -87,7 +87,7 @@ echo $formconfirm;
             <td>
                 <?php if ($action == 'modify' && $id == $rowid){ ?>
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                        <input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>" />
+                        <input type="hidden" name="token" value="<?php echo newToken(); ?>" />
                         <input type="hidden" name="rowid" value="<?php echo $id; ?>" />
                         <input type="hidden" name="active" value="<?php echo $cat->active; ?>" />
                         <input type="hidden" name="page" value="<?php echo $page; ?>" />

@@ -44,7 +44,7 @@ $(document).ready(function() {
 <?php echo $formconfirm ? $formconfirm : ''; ?>
 
 <form name="addpaiement" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-<input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>" />
+<input type="hidden" name="token" value="<?php echo newToken(); ?>" />
 <input type="hidden" name="action" value="add" />
 <input type="hidden" name="fk_user" value="<?php echo $fk_user; ?>" />
 

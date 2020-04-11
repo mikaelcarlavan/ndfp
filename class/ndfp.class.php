@@ -6922,4 +6922,3 @@ class NdfpTaxLine
         }
     }    	
 }
-?>

@@ -39,7 +39,7 @@ echo $langs->trans('ExpTaxDesc');
 <br /><br />
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 <input type="hidden" name="rowid" value="<?php echo $rowid; ?>" />
-<input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>" />
+<input type="hidden" name="token" value="<?php echo newToken(); ?>" />
 <input type="hidden" name="page" value="<?php echo $page; ?>" />
 
 <?php

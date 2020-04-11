@@ -1213,4 +1213,3 @@ class NdfpPaymentLine
 		}
 	}
 }
-?>

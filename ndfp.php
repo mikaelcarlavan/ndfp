@@ -30,6 +30,7 @@ if (! $res) $res=@include("../../main.inc.php");	// For "custom" directory
 dol_include_once("/ndfp/class/ndfp.class.php");
 dol_include_once("/ndfp/class/html.form.ndfp.class.php");
 dol_include_once("/ndfp/lib/ndfp.lib.php");
+
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.form.class.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
@@ -75,9 +76,7 @@ if ($action == 'list')
 	$action = '';
 }
 
-/*
- * View
- */
+
 $ndfp = new Ndfp($db);
 $ndfps = array();
 
@@ -347,9 +346,7 @@ if ($action != 'create' && $action != 'delete' && $action != 'setproject' && !$c
     }
 }
 
-/*
- * Add file in email form
- */
+
 if (!empty($_POST['addfile']))
 {
 
@@ -364,9 +361,7 @@ if (!empty($_POST['addfile']))
     $action = 'presend';
 }
 
-/*
- * Remove file in email form
- */
+
 if (!empty($_POST['removedfile']))
 {
 
@@ -466,9 +461,6 @@ if ($action == 'paid')
 
 if ($action == 'presend')
 {
-    /*
-     * Display mail form
-     */
 
     $ref = dol_sanitizeFileName($ndfp->ref);
     $upload_dir = $conf->ndfp->dir_output .'/'. $ref;
@@ -532,7 +524,6 @@ if ($ndfp->id > 0 || $action == 'create')
         $adminCommentEditor = new DolEditor('comment_admin', $ndfp->comment_admin, '',200,'dolibarr_notes','',false,true, $conf->fckeditor->enabled,ROWS_6,50);
 
         include 'tpl/ndfp.create.tpl.php';
-
     }
     else if ($action == 'followup')
     {
@@ -656,7 +647,4 @@ else
     include 'tpl/ndfp.list.tpl.php';
 }
 
-
 $db->close();
-
-?>

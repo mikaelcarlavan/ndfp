@@ -80,7 +80,7 @@ echo ($formconfirm ? $formconfirm : '');
  			<?php if ($action == 'editnote'){ ?>
             <form method="POST" action="<?php echo $_SERVER["PHP_SELF"].'?id='.$payment->id; ?>" name="formdesc">
                 <input type="hidden" name="action" value="set_note" />
-                <input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>" />
+                <input type="hidden" name="token" value="<?php echo newToken(); ?>" />
                 <table class="nobordernopadding" cellpadding="0" cellspacing="0">
                     <tr>
                         <td>

@@ -111,7 +111,7 @@ dol_fiche_head($head, $current_head, $langs->trans('Ndfp'));
             <?php if ($action == 'editdesc'){ ?>
             <form method="POST" action="<?php echo $_SERVER["PHP_SELF"].'?id='.$ndfp->id; ?>" name="formdesc">
                 <input type="hidden" name="action" value="setdesc" />
-                <input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>" />
+                <input type="hidden" name="token" value="<?php echo newToken(); ?>" />
                 <table class="nobordernopadding" cellpadding="0" cellspacing="0">
                     <tr>
                         <td><input type="text" name="description" value="<?php echo $ndfp->description; ?>" size="52"/></td>
@@ -143,7 +143,7 @@ dol_fiche_head($head, $current_head, $langs->trans('Ndfp'));
             <?php if ($action == 'edit_paymentmode'){ ?>
             <form method="POST" action="<?php echo $_SERVER["PHP_SELF"].'?id='.$ndfp->id; ?>" name="formdesc">
                 <input type="hidden" name="action" value="set_paymentmode" />
-                <input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>" />
+                <input type="hidden" name="token" value="<?php echo newToken(); ?>" />
                 <table class="nobordernopadding" cellpadding="0" cellspacing="0">
                     <tr>
                         <td><?php echo $ndfpHtml->select_payment_modes($ndfp->fk_mode_reglement,'fk_mode_reglement'); ?></td>
@@ -319,7 +319,7 @@ dol_fiche_head($head, $current_head, $langs->trans('Ndfp'));
                 <?php if ($action == 'setproject'){ ?>
                     <form method="POST" action="<?php echo $_SERVER["PHP_SELF"].'?id='.$ndfp->id; ?>" name="formdesc">
                         <input type="hidden" name="action" value="classin" />
-                        <input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>" />
+                        <input type="hidden" name="token" value="<?php echo newToken(); ?>" />
                         <table class="nobordernopadding" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td><?php $html->form_project($_SERVER['PHP_SELF'].'?id='.$ndfp->id, $ndfp->fk_soc, $ndfp->fk_project,'fk_project'); ?></td>
@@ -363,7 +363,7 @@ for($i = 0; $i < $numLines; $i++){
     if ($action == 'editline' && $lineid == $line->rowid){ ?>
 
     <form name="addexpense" id="addexpense" action="<?php echo $_SERVER["PHP_SELF"].'?id='.$ndfp->id; ?>" method="POST">
-    <input type="hidden" name="token" value="<?php  echo $_SESSION['newtoken']; ?>" />
+    <input type="hidden" name="token" value="<?php  echo newToken(); ?>" />
     <input type="hidden" name="action" value="updateline" />
     <input type="hidden" name="id" value="<?php echo $ndfp->id; ?>" />
     <input type="hidden" name="lineid" value="<?php echo $line->rowid; ?>" />
@@ -483,7 +483,7 @@ for($i = 0; $i < $numLines; $i++){
 </tr>
 
 <form name="addexpense" id="addexpense" action="<?php echo $_SERVER["PHP_SELF"].'?id='.$ndfp->id; ?>" method="POST">
-<input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>" />
+<input type="hidden" name="token" value="<?php echo newToken(); ?>" />
 <input type="hidden" name="action" value="addline" />
 <input type="hidden" name="id" value="<?php echo $ndfp->id; ?>" />
 <input type="hidden" name="fk_user" id="fk_user" value="<?php echo $ndfp->fk_user; ?>" />
@@ -548,7 +548,7 @@ for($i = 0; $i < $numTaxLines; $i++){
     if ($action == 'edittaxline' && $lineid == $line->rowid){ ?>
 
     <form action="<?php echo $_SERVER["PHP_SELF"].'?id='.$ndfp->id; ?>" method="POST">
-    <input type="hidden" name="token" value="<?php  echo $_SESSION['newtoken']; ?>" />
+    <input type="hidden" name="token" value="<?php  echo newToken(); ?>" />
     <input type="hidden" name="action" value="updatetaxline" />
     <input type="hidden" name="id" value="<?php echo $ndfp->id; ?>" />
     <input type="hidden" name="lineid" value="<?php echo $line->rowid; ?>" />
@@ -610,7 +610,7 @@ for($i = 0; $i < $numTaxLines; $i++){
 </tr>
 
 <form action="<?php echo $_SERVER["PHP_SELF"].'?id='.$ndfp->id; ?>" method="POST">
-<input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>" />
+<input type="hidden" name="token" value="<?php echo newToken(); ?>" />
 <input type="hidden" name="action" value="addtaxline" />
 <input type="hidden" name="id" value="<?php echo $ndfp->id; ?>" />
 
@@ -667,7 +667,7 @@ for($i = 0; $i < $numTVALines; $i++){
     if ($action == 'edittvaline' && $lineid == $line->rowid){ ?>
 
     <form name="addtvaline" id="addtvaline" action="<?php echo $_SERVER["PHP_SELF"].'?id='.$ndfp->id; ?>" method="POST">
-    <input type="hidden" name="token" value="<?php  echo $_SESSION['newtoken']; ?>" />
+    <input type="hidden" name="token" value="<?php  echo newToken(); ?>" />
     <input type="hidden" name="action" value="updatetvaline" />
     <input type="hidden" name="id" value="<?php echo $ndfp->id; ?>" />
     <input type="hidden" name="lineid" value="<?php echo $line->rowid; ?>" />
@@ -737,7 +737,7 @@ for($i = 0; $i < $numTVALines; $i++){
 </tr>
 
 <form name="addtvaline" id="addtvaline" action="<?php echo $_SERVER["PHP_SELF"].'?id='.$ndfp->id; ?>" method="POST">
-<input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>" />
+<input type="hidden" name="token" value="<?php echo newToken(); ?>" />
 <input type="hidden" name="action" value="addtvaline" />
 <input type="hidden" name="id" value="<?php echo $ndfp->id; ?>" />
 

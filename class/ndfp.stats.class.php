@@ -1093,5 +1093,3 @@ class NdfpStats
 		return $results;
 	}
 }
-
-?>
