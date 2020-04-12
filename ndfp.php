@@ -430,7 +430,7 @@ if ($ndfp->id > 0 || $action == 'create')
 
         $cats = $ndfpHtml->get_cats_name();
         
-        $linkback = '<a href="'.dol_buildpath('/ndfp/ndfp.php', 1).'?socid='.$societestatic->id.'">'.$langs->trans("BackToList").'</a>';
+        $linkback = '<a href="'.dol_buildpath('/ndfp/list.php', 1).'?socid='.$societestatic->id.'">'.$langs->trans("BackToList").'</a>';
 
         $morehtmlref = '<div class="refidno"></div>';
 

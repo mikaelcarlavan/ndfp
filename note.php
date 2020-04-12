@@ -54,12 +54,12 @@ if ($id > 0 || !empty($ref))
 
     if ($result < 0)
     {
-	    header("Location: ".dol_buildpath('/ndfp/ndfp.php', 1));
+	    header("Location: ".dol_buildpath('/ndfp/list.php', 1));
     }
 }
 else
 {
-    header("Location: ".dol_buildpath('/ndfp/ndfp.php', 1));
+    header("Location: ".dol_buildpath('/ndfp/list.php', 1));
 }
 
 

@@ -38,7 +38,7 @@ echo ($message ? dol_htmloutput_mesg($message, '', ($error ? 'error' : 'ok'), 0)
 <table border="0" width="100%" class="notopnoleftnoright">
 <tr>
 <td valign="top" width="30%" class="notopnoleft">
-    <form method="post" action="<?php echo dol_buildpath('/ndfp/ndfp.php', 1); ?>">
+    <form method="post" action="<?php echo dol_buildpath('/ndfp/list.php', 1); ?>">
     <input type="hidden" name="token" value="<?php echo newToken(); ?>" />
     <table class="noborder" width="100%">
         <tr class="liste_titre">

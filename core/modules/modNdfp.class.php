@@ -300,7 +300,7 @@ class modNdfp extends DolibarrModules
 								'titre'=>$langs->trans('NdfpMenuTitle'),
 								'mainmenu'=>'ndfp',
 								'leftmenu'=>'',
-								'url'=>'/ndfp/ndfp.php',
+								'url'=>'/ndfp/list.php',
 								'langs'=> 'ndfp@ndfp',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 								'position'=>30,
 								'enabled'=>'$conf->ndfp->enabled ', //&& (!(! empty($conf->comptabilite->enabled) || ! empty($conf->accounting->enabled) || ! empty($conf->facture->enabled) || ! empty($conf->deplacement->enabled) || ! empty($conf->don->enabled) || ! empty($conf->tax->enabled)))	
@@ -316,7 +316,7 @@ class modNdfp extends DolibarrModules
 			'titre'=> $langs->trans('NdfpMenuTitle'),
 			'mainmenu'=> $mainmenu,
 			'leftmenu'=> 'ndfp',		// Use 1 if you also want to add left menu entries using this descriptor. Use 0 if left menu entries are defined in a file pre.inc.php (old school).
-			'url'=> '/ndfp/ndfp.php',
+			'url'=> '/ndfp/list.php',
 			'langs'=> 'ndfp@ndfp',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=> 100,
 			'enabled'=> '1',			// Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled.
@@ -365,7 +365,7 @@ class modNdfp extends DolibarrModules
         	'titre'=> $langs->trans('UnpaidNdfp'),
         	'mainmenu'=> $mainmenu,
         	'leftmenu'=> 'ndfp_unpaid',		// Use 1 if you also want to add left menu entries using this descriptor. Use 0 if left menu entries are defined in a file pre.inc.php (old school).
-			'url'=> '/ndfp/ndfp.php?filter=unpaid',
+			'url'=> '/ndfp/list.php?filter=unpaid',
 			'langs'=> 'ndfp@ndfp',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=> 103,
 			'enabled'=> '1',			// Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled.
