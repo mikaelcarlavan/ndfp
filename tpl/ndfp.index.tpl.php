@@ -160,7 +160,7 @@ echo ($message ? dol_htmloutput_mesg($message, '', ($error ? 'error' : 'ok'), 0)
 				            </td>
 				            <td width="20" class="nobordernopadding" nowrap="nowrap">&nbsp;</td>
 				            <td width="16" align="right" class="nobordernopadding">
-				                <?php $formfile->show_documents('ndfp', $ndfp->filename, $ndfp->filedir, $ndfp->urlsource,'','','',1,'',1); ?>
+                                <?php $formfile->showdocuments('ndfp', $ndfp->filename, $ndfp->filedir, $ndfp->urlsource, '', '', '', 1, 0, 0, 28, 0, '', '', '', $user->lang); ?>
                             </td>
                         </tr>
                     </table>
