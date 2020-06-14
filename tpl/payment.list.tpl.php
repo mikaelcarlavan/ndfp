@@ -55,7 +55,7 @@ print_barre_liste($langs->trans('PaymentsNdfp'), $page, 'payment.php', '', $sort
         <?php echo $html->select_types_paiements($search_payment_label,'search_payment_label', '', 2, 1, 1); ?>
     </td>    
     <td class="liste_titre" align="left">
-        <?php echo $html->select_comptes($search_account,'search_account', 0, '', 1); ?>
+        <?php $html->select_comptes($search_account,'search_account', 0, '', 1); ?>
     </td>
     <td class="liste_titre" align="right">
         <input class="flat" type="text" size="10" name="search_amount" value="<?php echo $search_amount; ?>" />
