@@ -2672,7 +2672,7 @@ class Ndfp extends CommonObject
                 $from = $_POST['fromname'] . ' <' . $_POST['frommail'] .'>';
                 $replyto = $_POST['replytoname']. ' <' . $_POST['replytomail'].'>';
 
-                $message = $_POST['message'];
+                $message = dol_nl2br($_POST['message']);
 
 
                 $sendtocc = $_POST['sendtocc'];
@@ -2700,7 +2700,7 @@ class Ndfp extends CommonObject
                 $mimetype = $attachedfiles['mimes'];
                 
 
-                $mailfile = new CMailFile($subject, $sendto, $from, $message, $filepath, $mimetype, $filename, $sendtocc, '', $deliveryreceipt);
+                $mailfile = new CMailFile($subject, $sendto, $from, $message, $filepath, $mimetype, $filename, $sendtocc, '', $deliveryreceipt, 1);
 
                 if ($mailfile->error)
                 {
@@ -3676,7 +3676,7 @@ class Ndfp extends CommonObject
         // Send by mail
         if ($this->statut == 1 || $this->statut == 2){
             if ($this->check_user_rights($user, 'send') > 0){
-                $buttons[] = '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?id='.$this->id.'&amp;action=presend&amp;mode=init">'.$langs->trans('SendByMail').'</a>';
+                $buttons[] = '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?id='.$this->id.'&amp;action=presend&amp;mode=preinit">'.$langs->trans('SendByMail').'</a>';
             }else{
                 $buttons[] = '<a class="butActionRefused" href="#">'.$langs->trans('SendByMail').'</a>';
             }

@@ -784,7 +784,7 @@ for($i = 0; $i < $numTVALines; $i++){
     <table width="100%">
         <tr>
             <td width="50%" valign="top">
-                <?php $formfile->showdocuments('ndfp', $filename, $filedir, $urlsource, $genallowed, $delallowed, $ndfp->modelpdf, 1, 0, 0, 28, 0, '', '', '', $user->lang); ?>
+                <?php echo $formfile->showdocuments('ndfp', $filename, $filedir, $urlsource, $genallowed, $delallowed, $ndfp->modelpdf, 1, 0, 0, 28, 0, '', '', '', $user->lang); ?>
                 <br />
 				<?php $linktoelem = $html->showLinkToObjectBlock($ndfp, null, array('ndfp')); ?>
 				<?php $somethingshown = $html->showLinkedObjectBlock($ndfp, $linktoelem); ?>

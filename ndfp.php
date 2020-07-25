@@ -261,6 +261,8 @@ if ($action == 'presend')
     $ref = dol_sanitizeFileName($ndfp->ref);
     $upload_dir = $conf->ndfp->dir_output .'/'. $ref;
 
+    dol_mkdir($upload_dir);
+    
     $file = $upload_dir . '/' . $ref . '.pdf';
     // Construit PDF si non existant
     if (! is_readable($file))
@@ -286,17 +288,20 @@ if ($action == 'presend')
     $formmail->withbody = $langs->transnoentities('SendNdfpMailBody','__NDFPREF__');
     $formmail->withdeliveryreceipt = 1;
     $formmail->withcancel = 1;
+    $formmail->trackid = 'ndf'.$ndfp->id;
 
     $formmail->substit['__NDFPREF__'] = $ndfp->ref;
 
     $formmail->param['action'] = 'send';
     $formmail->param['ndfpid'] = $ndfp->id;
     $formmail->param['returnurl'] = $_SERVER["PHP_SELF"].'?id='.$ndfp->id;
+    //$formmail->param['fileinit'] = $file;
 
     // Init list of files
-    if (! empty($_REQUEST["mode"]) && $_REQUEST["mode"]=='init')
+    if (GETPOST('mode') == 'preinit')
     {
         $formmail->clear_attached_files();
+        
         // Get list of files
         $filearray = dol_dir_list($upload_dir, "files", 0, '', '\.meta$', 'name', SORT_ASC, 0);
 
@@ -304,9 +309,7 @@ if ($action == 'presend')
         {
             $formmail->add_attached_files($file['fullname'], dol_sanitizeFilename($file['name']), dol_mimetype($file['fullname']));
         }
-
     }
-
 }
 
 if ($ndfp->id > 0 || $action == 'create')
