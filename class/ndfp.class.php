@@ -32,6 +32,10 @@ require_once(DOL_DOCUMENT_ROOT ."/core/lib/functions.lib.php");
 require_once(DOL_DOCUMENT_ROOT ."/core/lib/functions2.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/lib/price.lib.php');
 require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+
+require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php');
+
+
 dol_include_once('/ndfp/core/modules/ndfp/modules_ndfp.php');
 dol_include_once('/ndfp/class/ndfp.val.class.php');
 
@@ -2652,99 +2656,88 @@ class Ndfp extends CommonObject
 
         $subject = '';
 
-        $this->generate_pdf($user);
+        //$this->generate_pdf($user);
 
-        $ref = dol_sanitizeFileName($this->ref);
-        $file = $conf->ndfp->dir_output . '/' . $ref . '/' . $ref . '.pdf';
+        //$ref = dol_sanitizeFileName($this->ref);
+        //$file = $conf->ndfp->dir_output . '/' . $ref . '/' . $ref . '.pdf';
 
-        if (is_readable($file))
+        if ($_POST['sendto'])
         {
-            if ($_POST['sendto'])
+            $sendto = $_POST['sendto'];
+            $sendtoid = 0;
+        }
+
+        if (dol_strlen($sendto))
+        {
+            $langs->load("commercial");
+
+            $from = $_POST['fromname'] . ' <' . $_POST['frommail'] .'>';
+            $replyto = $_POST['replytoname']. ' <' . $_POST['replytomail'].'>';
+
+            $message = dol_nl2br($_POST['message']);
+
+
+            $sendtocc = $_POST['sendtocc'];
+            $deliveryreceipt = $_POST['deliveryreceipt'];
+
+
+            if (dol_strlen($_POST['subject']))
             {
-                $sendto = $_POST['sendto'];
-                $sendtoid = 0;
+                $subject = $_POST['subject'];
+            }
+            else
+            {
+                $subject = $langs->transnoentities('NdfpSing').' '.$this->ref;
             }
 
-            if (dol_strlen($sendto))
+
+            // Create form object
+
+            $formmail = new FormMail($this->db);
+            $formmail->trackid = 'ndf'.$this->id;
+
+            $attachedfiles = $formmail->get_attached_files();
+            $filepath = $attachedfiles['paths'];
+            $filename = $attachedfiles['names'];
+            $mimetype = $attachedfiles['mimes'];
+            
+            $mailfile = new CMailFile($subject, $sendto, $from, $message, $filepath, $mimetype, $filename, $sendtocc, '', $deliveryreceipt, 1);
+
+            if ($mailfile->error)
             {
-                $langs->load("commercial");
-
-                $from = $_POST['fromname'] . ' <' . $_POST['frommail'] .'>';
-                $replyto = $_POST['replytoname']. ' <' . $_POST['replytomail'].'>';
-
-                $message = dol_nl2br($_POST['message']);
-
-
-                $sendtocc = $_POST['sendtocc'];
-                $deliveryreceipt = $_POST['deliveryreceipt'];
-
-
-                if (dol_strlen($_POST['subject']))
+                $this->error = $mailfile->error;
+                return -1;
+            }
+            else
+            {
+                $result = $mailfile->sendfile();
+                if ($result)
                 {
-                   $subject = $_POST['subject'];
+                    // Appel des triggers
+                    include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
+                    $interface = new Interfaces($this->db);
+                    $result = $interface->run_triggers('NDFP_SENTBYMAIL',$this, $user, $langs, $conf);
+
+                    if ($result < 0)
+                    {
+                        $this->error = $langs->trans('ErrorCallingTrigger');
+                        return -1;
+                    }
+
+                    $this->error = $langs->trans('NdfpHasBeenSent');
+                    return 1;
                 }
                 else
-                {
-                   $subject = $langs->transnoentities('NdfpSing').' '.$this->ref;
-                }
-
-
-                // Create form object
-                include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php');
-
-                $formmail = new FormMail($db);
-
-                $attachedfiles = $formmail->get_attached_files();
-                $filepath = $attachedfiles['paths'];
-                $filename = $attachedfiles['names'];
-                $mimetype = $attachedfiles['mimes'];
-                
-
-                $mailfile = new CMailFile($subject, $sendto, $from, $message, $filepath, $mimetype, $filename, $sendtocc, '', $deliveryreceipt, 1);
-
-                if ($mailfile->error)
                 {
                     $this->error = $mailfile->error;
                     return -1;
                 }
-                else
-                {
-                    $result = $mailfile->sendfile();
-                    if ($result)
-                    {
-                        // Appel des triggers
-                        include_once(DOL_DOCUMENT_ROOT . "/core/class/interfaces.class.php");
-                        $interface = new Interfaces($this->db);
-                        $result = $interface->run_triggers('NDFP_SENTBYMAIL',$this, $user, $langs, $conf);
-
-                        if ($result < 0)
-                        {
-                            $this->error = $langs->trans('ErrorCallingTrigger');
-                            return -1;
-                        }
-
-                        $this->error = $langs->trans('NdfpHasBeenSent');
-                        return 1;
-                    }
-                    else
-                    {
-                        $this->error = $mailfile->error;
-                        return -1;
-                    }
-                }
-            }
-            else
-            {
-                $langs->load("other");
-                $this->error = $langs->trans('ErrorMailRecipientIsEmpty');
-
-                return -1;
             }
         }
         else
         {
             $langs->load("other");
-            $this->error = $langs->trans('ErrorCantReadFile',$file);
+            $this->error = $langs->trans('ErrorMailRecipientIsEmpty');
 
             return -1;
         }
