@@ -181,7 +181,6 @@ $message = $graphNumber->isGraphKo();
 if (! $message)
 {
 	$graphNumber->SetData($dataNumber);
-	$graphNumber->SetPrecisionY(0);
 	
 	$legend = array($searchStartYear, $previousStartYear);
 	/*$i = $startYear;
@@ -198,7 +197,6 @@ if (! $message)
 	$graphNumber->SetYLabel($langs->trans("NumberOfNotes"));
 	$graphNumber->SetShading(3);
 	$graphNumber->SetHorizTickIncrement(1);
-	$graphNumber->SetPrecisionY(0);
 	$graphNumber->mode='depth';
 	if ($source == 'months')
 	{
@@ -227,7 +225,6 @@ $message = $graphAmount->isGraphKo();
 if (! $message)
 {
 	$graphAmount->SetData($dataAmount);
-	$graphAmount->SetPrecisionY(0);
 	
 	$legend = array($searchStartYear, $previousStartYear);
 	
@@ -238,7 +235,6 @@ if (! $message)
 	$graphAmount->SetYLabel($langs->trans("AmountNotes"));
 	$graphAmount->SetShading(3);
 	$graphAmount->SetHorizTickIncrement(1);
-	$graphAmount->SetPrecisionY(0);
 	$graphAmount->mode='depth';
 	if ($source == 'months')
 	{
@@ -266,7 +262,6 @@ $message = $graphAverage->isGraphKo();
 if (! $message)
 {
 	$graphAverage->SetData($dataAverage);
-	$graphAverage->SetPrecisionY(0);
 	
 	$legend = array($searchStartYear, $previousStartYear);
 	//$legend[] = $endYear; // Display average only for this year
@@ -279,7 +274,6 @@ if (! $message)
 	$graphAverage->SetYLabel($langs->trans("AverageAmountNotes"));
 	$graphAverage->SetShading(3);
 	$graphAverage->SetHorizTickIncrement(1);
-	$graphAverage->SetPrecisionY(0);
 	$graphAverage->mode='depth';
 	if ($source == 'months')
 	{
