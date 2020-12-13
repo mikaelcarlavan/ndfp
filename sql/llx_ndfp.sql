@@ -38,10 +38,9 @@ CREATE TABLE IF NOT EXISTS `llx_ndfp`(
   `total_ht`        	double(24,8) DEFAULT 0,     
   `total_ttc`       	double(24,8) DEFAULT 0,         
   `description`     	text,
-  `comment_user`    	text,
-  `comment_admin`   	text,
+  `note_public`    	text,
+  `note_provate`   	text,
   `tms`					timestamp NOT NULL,  
-  `model_pdf`			varchar(255) NULL,
   `date_valid`			datetime NULL DEFAULT NULL,
   `fk_user_valid`		int(11) DEFAULT 0 NOT NULL,
   PRIMARY KEY (`rowid`)    
