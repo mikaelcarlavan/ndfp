@@ -187,6 +187,14 @@ function updatePreviousExp()
 		updateTotals();
 		});
 	}
+
+    if ($( "#createexpense" ).length) {
+        $.post( "<?php echo dol_buildpath('/ndfp/ajax.php?action=getfees', 1); ?>", $( "#createexpense" ).serialize(), function( data ) {
+
+            var typeData = jQuery.parseJSON(data);
+            $('#previous_exp').val(typeData.previousexp);
+        });
+    }
 }
 
 function updateMilestoneTVA()

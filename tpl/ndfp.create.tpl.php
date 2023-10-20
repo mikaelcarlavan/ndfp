@@ -32,7 +32,7 @@ echo ($message ? dol_htmloutput_mesg($message, '', ($error ? 'error' : 'ok'), 0)
 
 ?>
 
-<form name="add" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+<form id="createexpense" name="add" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
 <input type="hidden" name="token" value="<?php echo newToken(); ?>" />
 <input type="hidden" name="action" value="add" />
 <input type="hidden" name="id" value="<?php echo $ndfp->id; ?>" />
